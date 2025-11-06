@@ -18,10 +18,6 @@ export default defineConfig([
       perfectionist.configs["recommended-natural"],
       tanstackQuery.configs["flat/recommended"],
     ],
-    rules: {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "error",
-    },
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
@@ -30,6 +26,10 @@ export default defineConfig([
         project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": "error",
+      "no-unused-vars": "off",
     },
   },
 ]);
