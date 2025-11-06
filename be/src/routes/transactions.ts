@@ -88,7 +88,15 @@ router.patch("/:id", async (req, res) => {
     res.status(404).json({ message: "존재하지 않는 항목입니다." });
     return;
   }
-  items[index] = { ...items[index], ...req.body };
+  const item = items[index]!;
+  items[index] = {
+    amount: body.data.amount ?? item.amount,
+    category: body.data.category ?? item.category,
+    date: body.data.date ?? item.date,
+    description: body.data.description ?? item.description,
+    id: item.id,
+    payment: body.data.payment ?? item.payment,
+  };
   res.json(items[index]);
 });
 

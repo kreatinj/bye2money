@@ -1,8 +1,11 @@
 import { Router } from "express";
+import z from "zod";
 
 import { delay } from "../utils";
 
-const payments = ["현금", "신용카드"] as string[];
+const paymentSchema = z.string();
+
+const payments = ["현금", "신용카드"] as z.infer<typeof paymentSchema>[];
 
 const router: Router = Router();
 
@@ -15,20 +18,28 @@ router.get("/", async (_req, res) => {
 // 생성
 router.post("/", async (req, res) => {
   await delay(1000);
-  const { payment } = req.body;
-  if (payments.includes(payment)) {
+  const payment = paymentSchema.safeParse(req.body);
+  if (!payment.success) {
+    res.status(400).json({ error: z.prettifyError(payment.error), message: "잘못된 요청입니다." });
+    return;
+  }
+  if (payments.includes(payment.data)) {
     res.status(409).json({ message: "이미 존재하는 결제수단입니다." });
     return;
   }
-  payments.push(payment);
+  payments.push(payment.data);
   res.status(201).json(payment);
 });
 
 // 삭제
-router.delete("/:id", async (req, res) => {
+router.delete("/:payment", async (req, res) => {
   await delay(1000);
-  const { id } = req.params;
-  const index = payments.indexOf(id);
+  const payment = paymentSchema.safeParse(req.params.payment);
+  if (!payment.success) {
+    res.status(400).json({ error: z.prettifyError(payment.error), message: "잘못된 요청입니다." });
+    return;
+  }
+  const index = payments.indexOf(payment.data);
   if (index === -1) {
     res.status(404).json({ message: "존재하지 않는 결제수단입니다." });
     return;
