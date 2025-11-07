@@ -31,12 +31,10 @@ const itemSchema = z.object({
   payment: z.string(),
 });
 
-type Item = {
-  // id는 생성한 시간 순으로 부여됩니다.
-  id: z.infer<typeof idSchema>;
-} & z.infer<typeof itemSchema>;
-
-const items = sample as Item[];
+const items = z.object({
+  ...itemSchema.shape,
+  id: idSchema,
+}).array().parse(sample);
 let id = items.length + 1;
 
 const router: Router = Router();

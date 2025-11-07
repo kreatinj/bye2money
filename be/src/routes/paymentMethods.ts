@@ -4,8 +4,9 @@ import z from "zod";
 import { delay } from "../utils";
 
 const paymentSchema = z.string();
+type Payment = z.infer<typeof paymentSchema>;
 
-const payments = ["현금", "신용카드"] as z.infer<typeof paymentSchema>[];
+const payments: Payment[] = ["현금", "신용카드"];
 
 const router: Router = Router();
 
