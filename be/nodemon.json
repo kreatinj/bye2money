@@ -1,5 +1,5 @@
 {
-  "watch": ["src"],
-  "ext": "*",
+  "watch": ["data", "src"],
+  "ext": "ts,json",
   "exec": "node --import jiti/register ./src/app.ts"
 }
