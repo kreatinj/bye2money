@@ -1,21 +1,23 @@
 import type { Item } from "~/api/transactions";
 
 export function dailyTotals(data: Item[], daysInMonth: number) {
-  const dailyData = Array(daysInMonth).fill(null).map(() => ({
+  const dailyData = Array(daysInMonth)
+    .fill(null)
+    .map(() => ({
       totalAmount: 0,
       totalExpense: 0,
       totalIncome: 0,
     }));
-    data.forEach((item) => {
-      const day = item.date.date() - 1;
-      dailyData[day].totalAmount += item.amount;
-      if (item.amount < 0) {
-        dailyData[day].totalExpense += item.amount;
-      } else {
-        dailyData[day].totalIncome += item.amount;
-      }
-    });
-    return dailyData;
+  data.forEach((item) => {
+    const day = item.date.date() - 1;
+    dailyData[day].totalAmount += item.amount;
+    if (item.amount < 0) {
+      dailyData[day].totalExpense += item.amount;
+    } else {
+      dailyData[day].totalIncome += item.amount;
+    }
+  });
+  return dailyData;
 }
 
 export function fold<T>(array: T[], count: number) {
