@@ -1,16 +1,18 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Kreatinj <kjune1999@naver.com> (https://github.com/kreatinj)",
+  "type": "module",
+  "main": "dist/app.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "nodemon",
     "lint": "eslint . --fix"
   },
-  "keywords": [],
-  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
@@ -28,5 +30,15 @@
     "nodemon": "^3.1.10",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.45.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "onFail": "error"
+    }
   }
 }
