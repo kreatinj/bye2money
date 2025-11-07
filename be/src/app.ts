@@ -12,7 +12,7 @@ const PORT = 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.use(express.static(path.join(__dirname, "../../fe/dist")));
 app.use(cors());          // 모든 요청 허용
 app.use(express.json());  // JSON 파싱
 
