@@ -14,7 +14,7 @@ export function filter(item: Item, expense: boolean, income: boolean) {
 
 export function groupByDate(data: Item[]) {
   return Object.values(
-    data.reduce((acc, item) => {
+    data.reduce<Record<string, { dailyExpense: number; dailyIncome: number; data: Item[]; date: Dayjs }>>((acc, item) => {
       const dateKey = item.date.format("YYYY-MM-DD");
       if (!acc[dateKey]) {
         acc[dateKey] = {
@@ -31,6 +31,6 @@ export function groupByDate(data: Item[]) {
         acc[dateKey].dailyExpense -= item.amount;
       }
       return acc;
-    }, {} as Record<string, { dailyExpense: number; dailyIncome: number; data: Item[]; date: Dayjs }>)
+    }, {})
   );
 }
